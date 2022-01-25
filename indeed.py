@@ -26,7 +26,7 @@ def get_last_page():
 def extract_jobs(last_pages):
   jobs = []
   for page in range(last_pages):
-    print(f"Scrapping page {page}")
+    print(f"Scrapping Indeed - page {page}")
     result = requests.get(f"{URL}&start={page*LIMIT}")
     soup = BeautifulSoup(result.text, "html.parser")
     results = soup.find_all("a", {"class": "fs-unmask"})
@@ -38,7 +38,9 @@ def extract_jobs(last_pages):
 
 
 def get_job(html_result):
-  title = html_result.find("h2", {"class": "jobTitle"}).find("span", title=True).text  # Chaning(체이닝)
+  title = html_result.find("h2", {
+      "class": "jobTitle"
+  }).find("span", title=True).text  # Chaning(체이닝)
   company = html_result.find("span", {"class": "companyName"})
   if company:
     company_anchor = company.find("a")
@@ -53,10 +55,10 @@ def get_job(html_result):
   job_id = html_result["data-jk"]
 
   return {
-      'title': title,
-      'company': company,
-      'location': location,
-      'link': f"https://www.indeed.com/viewjob?jk={job_id}"
+    'title': title,
+    'company': company,
+    'location': location,
+    'link': f"https://www.indeed.com/viewjob?jk={job_id}"
   }
 
 
