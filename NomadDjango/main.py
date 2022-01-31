@@ -19,9 +19,20 @@ class Car():
     print(self.doors)
     print("I started")
 
-
 def sample():  # 이건 function
   print("Just sample")
+
+
+class Convertable(Car):  # Extend Car
+  def __init__(self, **kwargs):
+    super().__init__(**kwargs)  # 부모클래스(upper class, 여기서는 Car)를 호출하는 function
+    self.time = kwargs.get("time", 10)
+
+  def take_off(self):
+    return "taking off"
+
+  def __str__(self):
+    return f"Car with {self.wheels} wheels"
 
 porche = Car(color="green", price="$4000")
 print("porche", porche.color, porche.price)
@@ -29,10 +40,9 @@ print("porche", porche.color, porche.price)
 ferrari = Car()
 print("ferrari", ferrari.color, ferrari.price)
 
-mini = Car()
-mini.color = "White"
-print("mini", mini)
-
+mini = Convertable()
+print(mini.take_off())
+print(mini.color)
 print(dir(Car))
 # ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'doors', 'seats', 'start', 'wheels', 'windows']
 
